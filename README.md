@@ -33,3 +33,8 @@ To get started
 
 - https://github.com/yaronn/blessed-contrib
 
+
+# Databases
+
+- https://github.com/louischatriot/nedb
+- Airtable
