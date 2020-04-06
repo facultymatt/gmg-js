@@ -14,6 +14,7 @@ const getGrillState = (hex) => {
   return status
 }
 
+// @todo test and refactor
 const getCurrentGrillTemp = (hex) => {
   const first = getRawValue(hex, 4)
   const second = getRawValue(hex, 6)

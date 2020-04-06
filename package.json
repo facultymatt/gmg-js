@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "asciichart": "^1.5.15",
     "express": "^4.17.1"
   }
 }
