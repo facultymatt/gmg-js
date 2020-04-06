@@ -19,7 +19,6 @@ const renderChart = async () => {
 
 socket.on("message", async (msg, info) => {
   const status = new GrillStatus(Buffer.from(msg));
-  console.log(status);
   await store.add({ timestamp: new Date().getTime(), ...status });
   renderChart();
 });

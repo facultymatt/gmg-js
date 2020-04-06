@@ -1,6 +1,6 @@
 import { HEADERS } from "./constants";
 import { FILE } from "./config";
-import Papa from "papaparse";
+import { last as _last } from "lodash";
 const csv = require("async-csv");
 const fs = require("fs").promises;
 const createCsvWriter = require("csv-writer").createObjectCsvWriter;
@@ -13,12 +13,15 @@ export async function setup() {
     path: FILE,
     header: HEADERS.map((header) => ({ id: header, title: header })),
   });
-  console.log('allRecords.length', allRecords.length);
   return await csvWriter.writeRecords(allRecords);
 }
 
 export async function add(item) {
   return await csvWriter.writeRecords([item]);
+}
+
+export async function last() {
+  return _last(await all());
 }
 
 export async function all() {
