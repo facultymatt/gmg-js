@@ -10,6 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "asciichart": "^1.5.15",
-    "express": "^4.17.1"
+    "csv": "^5.3.2",
+    "csv-parser": "^2.3.2",
+    "csv-reader": "^1.0.6",
+    "csv-writer": "^1.6.0",
+    "express": "^4.17.1",
+    "fast-csv": "^4.1.3"
   }
 }

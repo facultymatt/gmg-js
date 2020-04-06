@@ -1,0 +1,11 @@
+state,isOn,currentGrillTemp,desiredGrillTemp,currentProbe1Temp,desiredProbe1Temp,currentProbe2Temp,desiredProbe2Temp,fanModeActive,lowPelletAlarmActive
+on,true,229,225,183,198,199,0,false,false
+on,true,229,225,183,198,199,0,false,false
+on,true,229,225,184,198,199,0,false,false
+on,true,229,225,183,198,199,0,false,false
+on,true,229,225,184,198,199,0,false,false
+on,true,229,225,183,198,199,0,false,false
+on,true,229,225,183,198,199,0,false,false
+on,true,229,225,184,198,199,0,false,false
+on,true,229,225,183,198,199,0,false,false
+on,true,229,225,183,198,199,0,false,false

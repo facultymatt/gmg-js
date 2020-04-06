@@ -1,6 +1,6 @@
 const dgram = require("dgram");
 const express = require("express");
-const GrillStatus = require('./GrillStatus')
+const GrillStatus = require('./GrillStatus');
 
 const app = express();
 const socket = dgram.createSocket("udp4");
@@ -24,7 +24,7 @@ socket.on("message", (msg, info) => {
   const buff = Buffer.from(msg);
   // console.log('message', buff.toString());
   const status = new GrillStatus(buff);
-  console.log(status);
+  console.log(status);.
 });
 
 const doSend = (message) => {

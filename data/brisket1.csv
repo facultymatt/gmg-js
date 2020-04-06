@@ -1,0 +1,4 @@
+Timestamp,State,ON,Grill °F,Grill °F Target,Probe 1 °F,Probe 1 °F Target,Probe 1 °F,Probe 2 °F Target,Fan Mode,Low Pellet
+1586156904951,on,true,223,225,188,198,202,0,false,false
+1586156905947,on,true,223,225,188,198,201,0,false,false
+1586156906946,on,true,223,225,188,198,201,0,false,false
