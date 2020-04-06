@@ -5,8 +5,8 @@ const GrillStatus = require('./GrillStatus')
 const app = express();
 const socket = dgram.createSocket("udp4");
 
-const IP = "192.168.86.134";
-const PORT = 8080;
+const IP = "24.11.74.43";
+const PORT = 9999;
 
 const commands = Object.freeze({
   powerOn: 'UK001!',
