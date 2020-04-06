@@ -62,8 +62,11 @@ class GrillStatus {
     this.isOn = this.state === 'on'
     this.currentGrillTemp = getCurrentGrillTemp(hex)
     this.desiredGrillTemp = this.isOn ? getDesiredGrillTemp(hex) : 0
-    this.currentFoodTemp = getCurrentFoodTemp(hex)
-    this.desiredFoodTemp = this.isOn ? getDesiredFoodTemp(hex) : 0
+    this.currentProbe1Temp = getCurrentFoodTemp(hex)
+    this.desiredProbe1Temp = this.isOn ? getDesiredFoodTemp(hex) : 0;
+    this.currentProbe2Temp = test(hex, 32);
+    this.desiredProbe2Temp = test(hex, 36);
+
     this.fanModeActive = this.state === 'fan mode'
     this.lowPelletAlarmActive = getLowPelletAlarmActive(hex)
 
@@ -71,8 +74,8 @@ class GrillStatus {
     this.test_20 = test(hex, 20);
     this.test_24 = test(hex, 24);
     this.test_28 = test(hex, 28);
-    this.test_32 = test(hex, 32);
-    this.test_36 = test(hex, 36);
+    // this.test_32 = test(hex, 32); // _C2T = Current Food probe 2 temp
+    // this.test_36 = test(hex, 36); // _D2T = Desired Food probe 2 temp
     this.test_40 = test(hex, 40);
     this.test_44 = test(hex, 44);
     this.test_52 = test(hex, 52);
