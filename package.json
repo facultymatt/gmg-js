@@ -1,5 +1,5 @@
 {
-  "name": "gmg-node",
+  "name": "gmg-js",
   "version": "1.0.0",
   "description": "Connect to your Green Mountain Grill and visualize grill temp, prob temp, and more!",
   "main": "index.js",
