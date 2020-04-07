@@ -28,6 +28,10 @@ To get started
 
 - https://community.hubitat.com/t/release-green-mountain-grill/34720
 
+Debugging wireshark data from iPhone 
+
+http://www.gilles-bertrand.com/2016/07/iphoneappwebtrafficcaptureproxymachttpsniffer.html
+
 
 # Charting libs
 

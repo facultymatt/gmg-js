@@ -14,9 +14,13 @@ export const HEADERS = [
 
 export const COMMANDS = Object.freeze({
   powerOn: "UK001!",
-  // powerOff: 'UK004!',
+  powerOff: 'UK004!',
   getGrillStatus: "UR001!",
   getGrillId: "UL!",
-  // setGrillTempF: (temp) => `UT${temp}!`,
+  setGrillTempF: (temp) => `UT${temp}!`,
   setFoodTempF: (temp) => `UF${temp}!`,
 });
+
+// UN - what does this do? 
+// UF150
+// Uf150
