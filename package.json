@@ -20,6 +20,8 @@
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "lodash": "^4.17.15",
+    "pouchdb": "^7.2.1",
+    "pouchdb-find": "^7.2.1",
     "rethinkdb": "^2.4.2",
     "uuid": "^7.0.3"
   }

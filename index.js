@@ -5,7 +5,7 @@ const asciichart = require("asciichart");
 const csvdb = require("csvdb");
 import { PORT, IP, INTERVAL } from "./config";
 import { COMMANDS } from "./constants";
-import * as store from "./datastore";
+import * as store from "./datastore-pouch";
 
 const app = express();
 const socket = dgram.createSocket("udp4");
@@ -13,8 +13,8 @@ const socket = dgram.createSocket("udp4");
 const renderChart = async () => {
   const history = await store.all();
   const data = history.map(({ currentProbe1Temp }) => currentProbe1Temp);
+  console.clear();
   console.log(asciichart.plot(data, { height: 6 }));
-  console.log(" ");
 };
 
 socket.on("message", async (msg, info) => {

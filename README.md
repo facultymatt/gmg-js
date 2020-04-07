@@ -32,7 +32,11 @@ To get started
 # Charting libs
 
 - https://github.com/yaronn/blessed-contrib
-
+- https://vega.github.io/vega/
+- https://github.com/vega/vega-embed
+- https://altair-viz.github.io/ (python)
+- https://github.com/yhat/ggpy (python)
+- 
 
 # Databases
 
