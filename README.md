@@ -40,7 +40,13 @@ http://www.gilles-bertrand.com/2016/07/iphoneappwebtrafficcaptureproxymachttpsni
 - https://github.com/vega/vega-embed
 - https://altair-viz.github.io/ (python)
 - https://github.com/yhat/ggpy (python)
-- 
+
+
+
+- https://formidable.com/open-source/victory/docs/
+- https://vx-demo.now.sh/
+- https://recharts.org/en-US/
+
 
 # Databases
 

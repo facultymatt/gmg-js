@@ -55,12 +55,12 @@ app.get("/", function (req, res) {
 });
 
 app.get("/on", function (req, res) {
-  // sendOnce(COMMANDS.powerOn);
+  sendOnce(COMMANDS.powerOn);
   res.send("On grill!");
 });
 
 app.get("/off", function (req, res) {
-  // sendOnce(COMMANDS.powerOff);
+  sendOnce(COMMANDS.powerOff);
   res.send("Off grill!");
 });
 
