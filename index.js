@@ -31,10 +31,10 @@ socket.on("message", async (msg, info) => {
   // console.log('end message ====');
   // @todo check for non grill status messages
   status = new GrillStatus(Buffer.from(msg));
-  console.log(status.hex);
-  console.log(status.settings);
-  console.log(status.test_16_pizza);
+  console.log('hex         ', status.hex);
+  console.log('grillOptions', '                ', status.settings);
   console.log(' ');
+  console.log('grilOptions decode', JSON.stringify(status.grillOptions, null, 2));
   if (status.currentGrillTemp !== NaN) {
     // assume valid status
     await store.add({ timestamp: new Date().getTime(), ...status });

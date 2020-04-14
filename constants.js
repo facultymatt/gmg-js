@@ -34,15 +34,12 @@ String.prototype.replaceAt = function (index, replacement) {
 
 export const HEX_COMMANDS = Object.freeze({
   setPizzaMode: (settings) => {
-    const mode = `55430${settings.replaceAt(7, '2')}21`;
-    console.log(settings, mode);
-    return '5543052b02191919191921';
+    const mode = `55430${settings.replaceAt(1, '2')}21`;
+    return mode;
   },
   setRegularMode: (settings) => {
-    const mode = `55430${settings.replaceAt(7, '0')}21`;
-    console.log(settings, mode);
-    return '5543050b02191919191921';
-    // return '50b023219191919'
+    const mode = `55430${settings.replaceAt(1, '0')}21`;
+    return mode;
   },
 });
 
