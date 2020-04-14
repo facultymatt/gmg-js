@@ -33,6 +33,15 @@ Debugging wireshark data from iPhone
 http://www.gilles-bertrand.com/2016/07/iphoneappwebtrafficcaptureproxymachttpsniffer.html
 
 
+```
+in command line
+rvictl -s 75774351585796c9791a3fe3827453d58505ef55
+
+
+
+```
+
+
 # Charting libs
 
 - https://github.com/yaronn/blessed-contrib

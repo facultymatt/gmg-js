@@ -16,3 +16,7 @@ https://www.mongodb.com/blog/post/time-series-data-and-mongodb-part-2-schema-des
 
 Filtering changes
 https://pouchdb.com/api.html#filtered-changes
+
+
+Better doc IDS that have our sensor prop names in them?
+https://pouchdb.com/2014/06/17/12-pro-tips-for-better-code-with-pouchdb.html
