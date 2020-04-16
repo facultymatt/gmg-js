@@ -1,7 +1,8 @@
 const express = require("express");
-const short = require("short-uuid");
+
 import { COMMANDS, HEX_COMMANDS } from "./constants";
 import { sendOnce } from "./grill-polling";
+import { newCode, codesMatch, getCode } from "./helpers/code-gen";
 
 const app = express();
 
@@ -14,15 +15,9 @@ app.get("/on", function (req, res) {
   res.send("On grill!");
 });
 
-let code;
-
-export const newCode = () => {
-  code = short.generate();
-};
-
 app.get("/off", function (req, res) {
   if (req.query.code) {
-    if (req.query.code === code) {
+    if (codesMatch(req.query.code)) {
       newCode();
       sendOnce(COMMANDS.powerOff);
       return res.json({
@@ -37,12 +32,9 @@ app.get("/off", function (req, res) {
   newCode();
   return res.json({
     message: "Confirm you want send command off by visiting this link now",
-    link: `http://127.0.0.1:3000/off?code=${code}`,
-    code,
+    link: `http://127.0.0.1:3000/off?code=${getCode()}`,
+    code: getCode(),
   });
-
-  // sendOnce(COMMANDS.powerOff);
-  // res.send("Off grill!");
 });
 
 app.get("/pizza", function (req, res) {
