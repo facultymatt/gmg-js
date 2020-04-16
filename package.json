@@ -6,7 +6,7 @@
   "scripts": {
     "dashboard": "node -r esm dashboard.js",
     "start": "babel-node index.js",
-    "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --detectOpenHandles"
+    "test": "cross-env NODE_ENV=test jest --detectOpenHandles --watch"
   },
   "author": "facultymatt<mattmillerart@gmail.com>",
   "license": "ISC",

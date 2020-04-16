@@ -1,6 +1,6 @@
 const express = require("express");
 import { COMMANDS, HEX_COMMANDS } from "./constants";
-import { sendOnce } from './grill-polling';
+import { sendOnce } from "./grill-polling";
 
 const app = express();
 
@@ -14,8 +14,19 @@ app.get("/on", function (req, res) {
 });
 
 app.get("/off", function (req, res) {
-  sendOnce(COMMANDS.powerOff);
-  res.send("Off grill!");
+  if (req.query.code) {
+    if (req.query.code === "1234") {
+      sendOnce(COMMANDS.powerOff);
+      return res.send("Off grill!");
+    }
+    return res.status(403).send("invalid code");
+  }
+  return res.json({
+    code: "1234",
+  });
+
+  // sendOnce(COMMANDS.powerOff);
+  // res.send("Off grill!");
 });
 
 app.get("/pizza", function (req, res) {
@@ -49,6 +60,11 @@ app.get("/probe2", function (req, res) {
   const temp = req.query.temp || 0;
   sendOnce(COMMANDS.setProbe2TempF(temp));
   res.send(`Set probe2 temp ${temp}`);
+});
+
+app.use(function (err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send("Something broke!");
 });
 
 module.exports = app;
