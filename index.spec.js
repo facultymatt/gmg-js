@@ -13,18 +13,21 @@ describe("COMMANDS", () => {
   afterEach(() => {
     grillPolling.sendOnce.mockClear();
   });
-  it.only("off", async (done) => {
+  it.only("off returns a code", async (done) => {
     const res = await request(app).get("/off");
     expect(res.statusCode).toEqual(200);
-    expect(res.body).toEqual({
-      code: '1234'
-    });
-    // expect(grillPolling.sendOnce).toHaveBeenCalledWith(COMMANDS.powerOff);
+    expect(res.body.code).toBeDefined();
     done();
   });
   it.only("off w/ correct code", async (done) => {
-    const res = await request(app).get("/off?code=1234");
+    const res = await request(app).get("/off");
     expect(res.statusCode).toEqual(200);
+    const code = res.body.code;
+    expect(code).toBeDefined();
+    const url = `/off?code=${code}`;
+    console.log(url);
+    const res2 = await request(app).get(url);
+    expect(res2.statusCode).toEqual(200);
     expect(grillPolling.sendOnce).toHaveBeenCalledWith(COMMANDS.powerOff);
     done();
   });

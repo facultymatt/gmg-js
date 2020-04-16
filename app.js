@@ -1,4 +1,5 @@
 const express = require("express");
+const randomWords = require("random-words");
 import { COMMANDS, HEX_COMMANDS } from "./constants";
 import { sendOnce } from "./grill-polling";
 
@@ -13,16 +14,31 @@ app.get("/on", function (req, res) {
   res.send("On grill!");
 });
 
+let code;
+
+const newCode = () => {
+  code = randomWords({
+    exactly: 1,
+    formatter: (word) => word.toLowerCase(),
+  })[0];
+};
+
 app.get("/off", function (req, res) {
   if (req.query.code) {
-    if (req.query.code === "1234") {
+    if (req.query.code === code) {
+      newCode();
       sendOnce(COMMANDS.powerOff);
-      return res.send("Off grill!");
+      return res.json({
+        message: "Sent grill off command",
+      });
     }
-    return res.status(403).send("invalid code");
+    return res.status(403).json({
+      message: "invalid code",
+    });
   }
+  newCode();
   return res.json({
-    code: "1234",
+    code,
   });
 
   // sendOnce(COMMANDS.powerOff);
