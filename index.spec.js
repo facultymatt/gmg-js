@@ -1,5 +1,6 @@
 import { COMMANDS } from "./constants";
 import * as codeGen from "./helpers/code-gen";
+import url from 'url';
 
 const request = require("supertest");
 const app = require("./app");
@@ -34,10 +35,16 @@ describe("COMMANDS", () => {
     const link = res.body.link;
     expect(codeGen.newCode).toHaveBeenCalledTimes(1);
     expect(code).toBeDefined();
-    const url = `/off?code=${code}`;
-    const fullUrl = `http://127.0.0.1:3000/off?code=${code}`;
-    expect(fullUrl).toEqual(link);
-    const res2 = await request(app).get(url);
+    const expectedLink = url.format({
+      protocol: res.request.protocol,
+      host: res.request.host,
+      pathname: res.req.path,
+      query: {
+        code
+      },
+    });
+    expect(expectedLink).toEqual(link);
+    const res2 = await request(app).get(`/off?code=${code}`);
     expect(res2.statusCode).toEqual(200);
     expect(grillPolling.sendOnce).toHaveBeenCalledWith(COMMANDS.powerOff);
     expect(codeGen.newCode).toHaveBeenCalledTimes(2);

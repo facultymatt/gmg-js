@@ -2,7 +2,7 @@ const express = require("express");
 
 import { COMMANDS, HEX_COMMANDS } from "./constants";
 import { sendOnce } from "./grill-polling";
-import { newCode, codesMatch, getCode } from "./helpers/code-gen";
+import requireCode from "./middleware/requireCode";
 
 const app = express();
 
@@ -15,25 +15,10 @@ app.get("/on", function (req, res) {
   res.send("On grill!");
 });
 
-app.get("/off", function (req, res) {
-  if (req.query.code) {
-    if (codesMatch(req.query.code)) {
-      newCode();
-      sendOnce(COMMANDS.powerOff);
-      return res.json({
-        message: "Sent grill off command",
-      });
-    }
-    newCode();
-    return res.status(403).json({
-      message: "invalid code",
-    });
-  }
-  newCode();
+app.get("/off", requireCode, (req, res) => {
+  sendOnce(COMMANDS.powerOff);
   return res.json({
-    message: "Confirm you want send command off by visiting this link now",
-    link: `http://127.0.0.1:3000/off?code=${getCode()}`,
-    code: getCode(),
+    message: "Sent grill off command",
   });
 });
 
