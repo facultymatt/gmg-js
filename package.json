@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dashboard": "node -r esm dashboard.js",
-    "start": "node -r esm index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "babel-node index.js",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --detectOpenHandles"
   },
   "author": "facultymatt<mattmillerart@gmail.com>",
   "license": "ISC",
@@ -24,5 +24,22 @@
     "pouchdb-find": "^7.2.1",
     "rethinkdb": "^2.4.2",
     "uuid": "^7.0.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-jest": "^25.3.0",
+    "cross-env": "^7.0.2",
+    "jest": "^25.3.0",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }

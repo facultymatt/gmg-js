@@ -61,3 +61,8 @@ rvictl -x ##
 
 - https://github.com/louischatriot/nedb
 - Airtable
+
+
+# Testing
+
+- Great article simple steps: https://dev.to/nedsoft/testing-nodejs-express-api-with-jest-and-supertest-1km6
