@@ -1,5 +1,5 @@
 const express = require("express");
-const randomWords = require("random-words");
+const short = require("short-uuid");
 import { COMMANDS, HEX_COMMANDS } from "./constants";
 import { sendOnce } from "./grill-polling";
 
@@ -16,11 +16,8 @@ app.get("/on", function (req, res) {
 
 let code;
 
-const newCode = () => {
-  code = randomWords({
-    exactly: 1,
-    formatter: (word) => word.toLowerCase(),
-  })[0];
+export const newCode = () => {
+  code = short.generate();
 };
 
 app.get("/off", function (req, res) {
@@ -32,12 +29,14 @@ app.get("/off", function (req, res) {
         message: "Sent grill off command",
       });
     }
+    newCode();
     return res.status(403).json({
       message: "invalid code",
     });
   }
   newCode();
   return res.json({
+    message: "Confirm you want send command off by visiting this link now",
     link: `http://127.0.0.1:3000/off?code=${code}`,
     code,
   });
