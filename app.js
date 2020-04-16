@@ -38,6 +38,7 @@ app.get("/off", function (req, res) {
   }
   newCode();
   return res.json({
+    link: `http://127.0.0.1:3000/off?code=${code}`,
     code,
   });
 

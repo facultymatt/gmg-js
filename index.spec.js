@@ -2,7 +2,7 @@ import { COMMANDS } from "./constants";
 
 const request = require("supertest");
 const app = require("./app");
-const grillPolling = require('./grill-polling');
+const grillPolling = require("./grill-polling");
 
 jest.mock("./grill-polling", () => ({
   pollStatus: jest.fn(),
@@ -23,9 +23,11 @@ describe("COMMANDS", () => {
     const res = await request(app).get("/off");
     expect(res.statusCode).toEqual(200);
     const code = res.body.code;
+    const link = res.body.link;
     expect(code).toBeDefined();
     const url = `/off?code=${code}`;
-    console.log(url);
+    const fullUrl = `http://127.0.0.1:3000/off?code=${code}`;
+    expect(fullUrl).toEqual(link);
     const res2 = await request(app).get(url);
     expect(res2.statusCode).toEqual(200);
     expect(grillPolling.sendOnce).toHaveBeenCalledWith(COMMANDS.powerOff);
