@@ -19,7 +19,8 @@ export const COMMANDS = Object.freeze({
   getGrillStatus: "UR001!",
   getGrillId: "UL!",
   setGrillTempF: (temp) => `UT${temp}!`,
-  setFoodTempF: (temp) => `UF${temp}!`,
+  setProbe1TempF: (temp) => `UF${temp}!`,
+  setProbe2TempF: (temp) => `Uf${temp}!`,
   // setPizzaMode: 'UC.+ 2    !',
   // setRegularMode: 'UC.+ 9    !'
 });

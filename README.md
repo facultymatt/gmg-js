@@ -35,8 +35,8 @@ http://www.gilles-bertrand.com/2016/07/iphoneappwebtrafficcaptureproxymachttpsni
 
 ```
 in command line
-rvictl -s 75774351585796c9791a3fe3827453d58505ef55
-
+rvictl -s ##
+rvictl -x ##
 
 
 ```

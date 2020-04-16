@@ -31,14 +31,16 @@ socket.on("message", async (msg, info) => {
   // console.log('end message ====');
   // @todo check for non grill status messages
   status = new GrillStatus(Buffer.from(msg));
-  console.log('hex         ', status.hex);
-  console.log('grillOptions', '                ', status.settings);
-  console.log(' ');
-  console.log('grilOptions decode', JSON.stringify(status.grillOptions, null, 2));
+  // console.log('hex         ', status.hex);
+  // console.log('grillOptions', '                ', status.settings);
+  // console.log(' ');
+  // console.log('grilOptions decode', status.grillOptions);
   if (status.currentGrillTemp !== NaN) {
     // assume valid status
+    const dataToStore = { timestamp: new Date().getTime(), ...status };
     await store.add({ timestamp: new Date().getTime(), ...status });
-    // console.log("updated status");
+    console.clear();
+    console.log(dataToStore);
   }
 });
 
@@ -89,9 +91,22 @@ app.get("/coldSmoke", function (req, res) {
   res.send("Power on cold smoke");
 });
 
-app.get("/food", function (req, res) {
-  sendOnce(COMMANDS.setGrillTempF(150));
-  res.send("set food 150");
+app.get("/grill", function (req, res) {
+  const temp = req.query.temp || 0;
+  sendOnce(COMMANDS.setGrillTempF(temp));
+  res.send(`Set grill temp ${temp}`);
+});
+
+app.get("/probe1", function (req, res) {
+  const temp = req.query.temp || 0;
+  sendOnce(COMMANDS.setProbe1TempF(temp));
+  res.send(`Set probe1 temp ${temp}`);
+});
+
+app.get("/probe2", function (req, res) {
+  const temp = req.query.temp || 0;
+  sendOnce(COMMANDS.setProbe2TempF(temp));
+  res.send(`Set probe2 temp ${temp}`);
 });
 
 app.listen(3000, function () {
