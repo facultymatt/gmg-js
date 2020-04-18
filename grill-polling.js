@@ -41,6 +41,10 @@ socket.on("message", async (msg, info) => {
   }
 });
 
+const latestStatus = () => {
+  return status;
+};
+
 const sendOnce = (message, mode = "ascii") => {
   const data = Buffer.from(message, mode);
   socket.send(data, 0, data.byteLength, PORT, IP, (error) => {});
@@ -56,7 +60,9 @@ const pollStatus = () => {
 
 store.setup();
 
+// @todo change to exports
 module.exports = {
   pollStatus,
   sendOnce,
+  latestStatus
 };

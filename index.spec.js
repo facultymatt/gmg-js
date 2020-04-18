@@ -1,4 +1,4 @@
-import { COMMANDS } from "./constants";
+import { COMMANDS, HEX_COMMANDS } from "./constants";
 import * as codeGen from "./helpers/code-gen";
 import url from "url";
 
@@ -9,6 +9,9 @@ const grillPolling = require("./grill-polling");
 jest.mock("./grill-polling", () => ({
   pollStatus: jest.fn(),
   sendOnce: jest.fn(),
+  latestStatus: jest.fn(() => ({
+    settings: "xxxxxxxxxxxx",
+  })),
 }));
 
 jest.spyOn(codeGen, "newCode");
@@ -48,7 +51,7 @@ describe("COMMANDS", () => {
         expect(expectedLink).toEqual(link);
         const res2 = await request(app).get(`/off?code=${code}`);
         expect(res2.statusCode).toEqual(200);
-        expect(grillPolling.sendOnce).toHaveBeenCalledWith(COMMANDS.powerOff);
+        expect(grillPolling.sendOnce).toHaveBeenCalledWith(COMMANDS.powerOff, undefined);
         expect(codeGen.newCode).toHaveBeenCalledTimes(2);
         done();
       });
@@ -79,6 +82,8 @@ describe("COMMANDS", () => {
       });
     });
     describe("Temp commands", () => {
+      // @todo test other temps
+      // @todo handle out of range temps
       it("grill temp 150", async (done) => {
         const res = await request(app).get("/grill?temp=150");
         expect(res.statusCode).toEqual(200);
@@ -95,14 +100,13 @@ describe("COMMANDS", () => {
             code,
           },
         });
-        // console.log(link);
-        // expect(link.includes("/grill?temp=150&code=")).toEqual(true);
         expect(link).toEqual(expectedLink);
         const res2 = await request(app).get(`/grill?temp=150&code=${code}`);
         expect(res2.statusCode).toEqual(200);
         expect(res2.body.message).toEqual("Sent grill grill temp 150 command");
         expect(grillPolling.sendOnce).toHaveBeenCalledWith(
-          COMMANDS.setGrillTempF(150)
+          COMMANDS.setGrillTempF(150),
+          undefined
         );
         expect(codeGen.newCode).toHaveBeenCalledTimes(2);
         done();
@@ -116,6 +120,47 @@ describe("COMMANDS", () => {
         });
         it("probe2", async (done) => {
           const res = await request(app).get("/probe2");
+          expect(res.body.link).toBeDefined();
+          done();
+        });
+      });
+    });
+    describe("Settings commands", () => {
+      it("set pizza mode", async (done) => {
+        const res = await request(app).get("/pizza");
+        expect(res.statusCode).toEqual(200);
+        const code = res.body.code;
+        const link = res.body.link;
+        expect(codeGen.newCode).toHaveBeenCalledTimes(1);
+        expect(code).toBeDefined();
+        const expectedLink = url.format({
+          protocol: res.request.protocol,
+          host: res.request.host,
+          pathname: "/pizza", // @todo fix res.req.path
+          query: {
+            code,
+          },
+        });
+        expect(link).toEqual(expectedLink);
+        const res2 = await request(app).get(`/pizza?code=${code}`);
+        expect(res2.statusCode).toEqual(200);
+        expect(res2.body.message).toEqual("Sent grill pizza mode command");
+        expect(grillPolling.sendOnce).toHaveBeenCalledWith(
+          HEX_COMMANDS.setPizzaMode(grillPolling.latestStatus().settings),
+          "hex"
+        );
+        expect(codeGen.newCode).toHaveBeenCalledTimes(2);
+        done();
+      });
+      describe("quick check for each", () => {
+        // @todo detailed check for each
+        it("pizza", async (done) => {
+          const res = await request(app).get("/pizza");
+          expect(res.body.link).toBeDefined();
+          done();
+        });
+        it("regular", async (done) => {
+          const res = await request(app).get("/regular");
           expect(res.body.link).toBeDefined();
           done();
         });
