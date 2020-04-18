@@ -7,7 +7,7 @@ import * as store from "./datastore-pouch";
 
 const socket = dgram.createSocket("udp4");
 
-let status;
+let status = new GrillStatus(Buffer.from(''));
 
 const renderChart = async () => {
   const history = await store.all();

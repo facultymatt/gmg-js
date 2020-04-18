@@ -16,7 +16,7 @@ export default function (req, res, next) {
   const link = url.format({
     protocol: req.protocol,
     host: req.get("host"),
-    pathname: req.path,
+    pathname: [req.baseUrl, req.path].join(''),
     query: {
       ...req.query, // include original query params
       code: getCode(),
