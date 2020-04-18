@@ -3,7 +3,8 @@ const express = require("express");
 import { COMMANDS, HEX_COMMANDS } from "./constants";
 import { sendOnce } from "./grill-polling";
 import requireCode from "./middleware/requireCode";
-import sendCommandAndJson from "./middleware/sendCommandAndJson";
+import sendCommand from "./middleware/sendCommand";
+import jsonCommandSuccessMsg from "./middleware/jsonCommandSuccessMsg";
 
 const app = express();
 
@@ -11,35 +12,49 @@ app.get("/", function (req, res) {
   res.send("Hello World!");
 });
 
-// basic commands easy peasy
-app.get("/on", requireCode, sendCommandAndJson(COMMANDS.powerOn, "on"));
-app.get("/off", requireCode, sendCommandAndJson(COMMANDS.powerOff, "off"));
+// power
+app.get(
+  "/on",
+  requireCode,
+  sendCommand(COMMANDS.powerOn),
+  jsonCommandSuccessMsg("on")
+);
+app.get(
+  "/off",
+  requireCode,
+  sendCommand(COMMANDS.powerOff),
+  jsonCommandSuccessMsg("off")
+);
 app.get(
   "/coldSmoke",
   requireCode,
-  sendCommandAndJson(COMMANDS.powerOnColdSmoke, "cold smoke")
+  sendCommand(COMMANDS.powerOnColdSmoke),
+  jsonCommandSuccessMsg("coldSmoke")
 );
 
-// commands that take params
-app.get("/grill", function (req, res) {
-  const temp = req.query.temp || 0;
-  sendOnce(COMMANDS.setGrillTempF(temp));
-  res.send(`Set grill temp ${temp}`);
-});
+// temp
+app.get(
+  "/grill",
+  requireCode,
+  sendCommand((req) => COMMANDS.setGrillTempF(req.query.temp)),
+  jsonCommandSuccessMsg((req) => `grill temp ${req.query.temp}` )
+);
 
-app.get("/probe1", function (req, res) {
-  const temp = req.query.temp || 0;
-  sendOnce(COMMANDS.setProbe1TempF(temp));
-  res.send(`Set probe1 temp ${temp}`);
-});
+app.get(
+  "/probe1",
+  requireCode,
+  sendCommand((req) => COMMANDS.setProbe1TempF(req.query.temp)),
+  jsonCommandSuccessMsg((req) => `probe1 temp ${req.query.temp}` )
+);
 
-app.get("/probe2", function (req, res) {
-  const temp = req.query.temp || 0;
-  sendOnce(COMMANDS.setProbe2TempF(temp));
-  res.send(`Set probe2 temp ${temp}`);
-});
+app.get(
+  "/probe2",
+  requireCode,
+  sendCommand((req) => COMMANDS.setProbe2TempF(req.query.temp)),
+  jsonCommandSuccessMsg((req) => `probe2 temp ${req.query.temp}` )
+);
 
-// commands that set settings - tricky!
+// settings
 app.get("/pizza", function (req, res) {
   sendOnce(HEX_COMMANDS.setPizzaMode(status.settings), "hex");
   res.send("Pizza mode?");

@@ -41,6 +41,12 @@ rvictl -x ##
 
 ```
 
+# Ways to monitize
+
+- pay $5
+- pay what you wish
+- buy / generate art from cooks
+
 
 # Charting libs
 
@@ -66,3 +72,28 @@ rvictl -x ##
 # Testing
 
 - Great article simple steps: https://dev.to/nedsoft/testing-nodejs-express-api-with-jest-and-supertest-1km6
+
+
+# Command API
+
+GET /status
+// returns current status as stored in local state
+// status is updated approx 1-5 seconds by pinging grill
+// and waiting for response message.
+
+GET /command/power/on
+GET /command/power/off
+GET /command/power/cold-smoke
+
+GET /command/temp/grill
+GET /command/temp/probe1
+GET /command/temp/probe2
+
+GET /command/settings/pizza
+GET /command/settings/regular
+
+-------
+
+GET /cook
+// returns all cooks 
+
