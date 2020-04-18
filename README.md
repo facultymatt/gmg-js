@@ -1,3 +1,45 @@
+## TODO update with latest
+
+## Command API
+
+Command api allows for remote control of your GMG. A few implementation notes
+
+- All endpoints are GET requests for now, to make them easy to debug in browser
+- Since endpoints command an actual thing which can be dangerous, a confirmation pattern is used. The first request to each endpoint returns a code and a link, following the link actually executes the command.
+
+Here are the api endpoints
+
+```
+GET /command/power/on
+GET /command/power/off
+GET /command/power/cold-smoke
+
+GET /command/temp/grill
+GET /command/temp/probe1
+GET /command/temp/probe2
+
+GET /command/settings/pizza
+GET /command/settings/regular
+```
+
+## Status API
+
+Basic API to get status of grill as stored in local state. Status is updated approx 1-5 seconds by pinging grill and waiting for response message. It's not reccomdend to use this for polling. Instead, talk directory to the database, see examples TODO
+
+```
+GET /status
+
+```
+
+## Real-time API 
+
+TODO document 
+
+
+
+---------------
+
+Old notes
 
 # Overview
 
@@ -74,23 +116,7 @@ rvictl -x ##
 - Great article simple steps: https://dev.to/nedsoft/testing-nodejs-express-api-with-jest-and-supertest-1km6
 
 
-# Command API
 
-GET /status
-// returns current status as stored in local state
-// status is updated approx 1-5 seconds by pinging grill
-// and waiting for response message.
-
-GET /command/power/on
-GET /command/power/off
-GET /command/power/cold-smoke
-
-GET /command/temp/grill
-GET /command/temp/probe1
-GET /command/temp/probe2
-
-GET /command/settings/pizza
-GET /command/settings/regular
 
 -------
 

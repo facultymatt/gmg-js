@@ -1,18 +1,18 @@
-import express from 'express';
+import express from "express";
 
 import { temp, power, settings } from "./routes";
 
 const app = express();
 
-app.use("/power", power);
-app.use("/temp", temp);
-app.use("/settings", settings);
+app.use("/command/power", power);
+app.use("/command/temp", temp);
+app.use("/command/settings", settings);
 
 // basic error handler
 app.use(function (err, req, res, next) {
   console.error(err.stack);
   res.status(500).json({
-    message: "Error!"
+    message: "Error!",
   });
 });
 
