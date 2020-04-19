@@ -1,6 +1,6 @@
 import express from "express";
 
-import { temp, power, settings } from "./routes";
+import { temp, power, settings } from "./api";
 
 const app = express();
 

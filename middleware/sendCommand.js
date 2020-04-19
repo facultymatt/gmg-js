@@ -1,12 +1,12 @@
 import { isFunction } from "lodash";
-import { sendOnce } from "../grill-polling";
+import { grillSendCommandOnce } from "../services/grillSendCommandOnce";
 
 export default function (command, mode) {
   return function (req, res, next) {
     if (isFunction(command)) {
-      sendOnce(command(req, res), mode);
+      grillSendCommandOnce(command(req, res), mode);
     } else {
-      sendOnce(command, mode);
+      grillSendCommandOnce(command, mode);
     }
     next();
   };

@@ -1,5 +1,10 @@
 ## TODO update with latest
 
+## Structure
+
+This project is based on structure in this article: https://softwareontheroad.com/ideal-nodejs-project-structure/. A quick read over will help you better navigate this project.
+
+
 ## Command API
 
 Command api allows for remote control of your GMG. A few implementation notes
@@ -123,3 +128,24 @@ rvictl -x ##
 GET /cook
 // returns all cooks 
 
+
+
+## OLD database notes
+
+- `brew install rethinkdb`
+- `rethinkdb`
+- in browser go to http://localhost:8080/
+
+https://marmelab.com/blog/2019/09/25/couchdb_pouchdb_serious_firebase_alternative.html
+
+
+Good article on optimization
+https://www.mongodb.com/blog/post/time-series-data-and-mongodb-part-2-schema-design-best-practices
+
+
+Filtering changes
+https://pouchdb.com/api.html#filtered-changes
+
+
+Better doc IDS that have our sensor prop names in them?
+https://pouchdb.com/2014/06/17/12-pro-tips-for-better-code-with-pouchdb.html

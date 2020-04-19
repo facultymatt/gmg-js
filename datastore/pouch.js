@@ -3,8 +3,6 @@ const uuid = require("uuid/v4");
 
 const db = new PouchDB("http://localhost:5984/api_test_1");
 
-export async function setup() {}
-
 export async function add(item) {
   return await db
     .put({ _id: `${item.timestamp}`, ...item })

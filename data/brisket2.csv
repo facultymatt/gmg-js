@@ -1,9 +1,0 @@
-timestamp,state,isOn,currentGrillTemp,desiredGrillTemp,currentProbe1Temp,desiredProbe1Temp,currentProbe2Temp,desiredProbe2Temp,fanModeActive,lowPelletAlarmActive
-1586196504422,off,false,47,0,48,0,49,0,false,false
-1586196506410,off,false,47,0,48,0,49,0,false,false
-1586196508408,off,false,47,0,48,0,49,0,false,false
-1586196510407,off,false,47,0,48,0,49,0,false,false
-1586196512415,off,false,47,0,48,0,49,0,false,false
-1586196514416,off,false,47,0,48,0,49,0,false,false
-1586217994172,off,false,57,0,60,0,60,0,false,false
-1586217996162,off,false,57,0,60,0,60,0,false,false
