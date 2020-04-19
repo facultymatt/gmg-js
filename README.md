@@ -1,3 +1,45 @@
+## TODO update with latest
+
+## Command API
+
+Command api allows for remote control of your GMG. A few implementation notes
+
+- All endpoints are GET requests for now, to make them easy to debug in browser
+- Since endpoints command an actual thing which can be dangerous, a confirmation pattern is used. The first request to each endpoint returns a code and a link, following the link actually executes the command.
+
+Here are the api endpoints
+
+```
+GET /command/power/on
+GET /command/power/off
+GET /command/power/cold-smoke
+
+GET /command/temp/grill
+GET /command/temp/probe1
+GET /command/temp/probe2
+
+GET /command/settings/pizza
+GET /command/settings/regular
+```
+
+## Status API
+
+Basic API to get status of grill as stored in local state. Status is updated approx 1-5 seconds by pinging grill and waiting for response message. It's not reccomdend to use this for polling. Instead, talk directory to the database, see examples TODO
+
+```
+GET /status
+
+```
+
+## Real-time API 
+
+TODO document 
+
+
+
+---------------
+
+Old notes
 
 # Overview
 
@@ -28,8 +70,56 @@ To get started
 
 - https://community.hubitat.com/t/release-green-mountain-grill/34720
 
+Debugging wireshark data from iPhone 
+
+http://www.gilles-bertrand.com/2016/07/iphoneappwebtrafficcaptureproxymachttpsniffer.html
+
+
+```
+in command line
+rvictl -s ##
+rvictl -x ##
+
+
+```
+
+# Ways to monitize
+
+- pay $5
+- pay what you wish
+- buy / generate art from cooks
+
 
 # Charting libs
 
 - https://github.com/yaronn/blessed-contrib
+- https://vega.github.io/vega/
+- https://github.com/vega/vega-embed
+- https://altair-viz.github.io/ (python)
+- https://github.com/yhat/ggpy (python)
+
+
+
+- https://formidable.com/open-source/victory/docs/
+- https://vx-demo.now.sh/
+- https://recharts.org/en-US/
+
+
+# Databases
+
+- https://github.com/louischatriot/nedb
+- Airtable
+
+
+# Testing
+
+- Great article simple steps: https://dev.to/nedsoft/testing-nodejs-express-api-with-jest-and-supertest-1km6
+
+
+
+
+-------
+
+GET /cook
+// returns all cooks 
 

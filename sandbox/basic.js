@@ -1,6 +1,7 @@
-const dgram = require("dgram");
-const express = require("express");
-const GrillStatus = require('./GrillStatus');
+import express from 'express';
+import dgram from 'dgram';
+
+import GrillStatus from '../GrillStatus';
 
 const app = express();
 const socket = dgram.createSocket("udp4");
