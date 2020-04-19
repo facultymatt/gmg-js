@@ -3,6 +3,7 @@ import GrillStatus from "./GrillStatus";
 import * as store from "./datastore-pouch";
 
 jest.spyOn(store, 'add');
+jest.spyOn(store, 'addEvent');
 
 jest.mock("./GrillStatus", () => {
   return jest.fn(() => ({
@@ -14,19 +15,18 @@ describe.only("grill polling", () => {
   it("calls store.add on message emit", async (done) => {
     socket.emit("message", 'cats');
     expect(GrillStatus).toHaveBeenCalled();
-    expect(latestStatus().state).toEqual('on');
+    latestStatus().state = 'beans';
+    expect(latestStatus().state).toEqual('beans');
     expect(latestStatus().timestamp).toBeDefined();
     expect(store.add).toHaveBeenCalledWith(latestStatus());
     done();
   });
   it("calls store.addEvent when on/off changes", async (done) => {
-    socket.emit("message", 'cats');
-    expect(latestStatus().state).toEqual('on');
-    GrillStatus.mockReturnValueOnce({
-      state: 'off',
-    });
-    socket.emit("message", 'cats');
+    latestStatus().state = 'off';
     expect(latestStatus().state).toEqual('off');
+    latestStatus().state = 'on';
+    expect(latestStatus().state).toEqual('on');
+    expect(store.addEvent).toHaveBeenCalled();
     done();
   });
 });

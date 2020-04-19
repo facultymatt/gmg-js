@@ -19,6 +19,9 @@ export async function all() {
     .then((data) => data.rows.map(({ doc }) => doc).reverse());
 }
 
+export async function addEvent() {
+  return await db.allDocs({ include_docs: true, limit: 1, descending: true });
+}
 
 /**
  * const PouchDB = require("pouchdb");

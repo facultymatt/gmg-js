@@ -27,9 +27,13 @@ socket.on("message", async (msg, info) => {
   // console.log(info);
   // console.log('end message ====');
   // @todo check for non grill status messages
+  const grillStatus = new GrillStatus(Buffer.from(msg));
+  if (grillStatus.state !== status.state) {
+    await store.addEvent({});
+  }
   status = {
     timestamp: new Date().getTime(),
-    ...new GrillStatus(Buffer.from(msg)),
+    ...grillStatus,
   };
   // console.log('hex         ', status.hex);
   // console.log('grillOptions', '                ', status.settings);
