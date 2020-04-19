@@ -7,7 +7,7 @@ import * as store from "./datastore-pouch";
 
 const socket = dgram.createSocket("udp4");
 
-let status = new GrillStatus(Buffer.from(''));
+let status = new GrillStatus(Buffer.from(""));
 
 const renderChart = async () => {
   const history = await store.all();
@@ -27,17 +27,19 @@ socket.on("message", async (msg, info) => {
   // console.log(info);
   // console.log('end message ====');
   // @todo check for non grill status messages
-  status = new GrillStatus(Buffer.from(msg));
+  status = {
+    timestamp: new Date().getTime(),
+    ...new GrillStatus(Buffer.from(msg)),
+  };
   // console.log('hex         ', status.hex);
   // console.log('grillOptions', '                ', status.settings);
   // console.log(' ');
   // console.log('grilOptions decode', status.grillOptions);
   if (status.currentGrillTemp !== NaN) {
     // assume valid status
-    const dataToStore = { timestamp: new Date().getTime(), ...status };
-    await store.add({ timestamp: new Date().getTime(), ...status });
-    console.clear();
-    console.log(dataToStore);
+    await store.add(status);
+    // console.clear();
+    // console.log(dataToStore);
   }
 });
 
@@ -62,7 +64,8 @@ store.setup();
 
 // @todo change to exports
 module.exports = {
+  socket,
   pollStatus,
   sendOnce,
-  latestStatus
+  latestStatus,
 };
