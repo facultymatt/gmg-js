@@ -1,5 +1,13 @@
 ## TODO update with latest
 
+- [x] knowing each socket connection is different we need to refactor that a bit. Create a socket for pinging status, and in sendCommand create a new socket each time and listen for its response.
+- [ ] Use sendGrillCOmmandOnce for polling. Make async. Create grill status still in service.
+
+
+- [ ] Capture other grill errors? See https://github.com/Aenima4six2/gmg/commit/614589cf775422e394f4529b4befbe8ac33bbdf0 
+
+‭
+
 ## Structure
 
 This project is based on structure in this article: https://softwareontheroad.com/ideal-nodejs-project-structure/. A quick read over will help you better navigate this project.

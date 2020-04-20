@@ -17,6 +17,7 @@ const getGrillState = (hex) => {
   else if (status === 1) status = "on";
   else if (status === 2) status = "fan mode";
   else if (status === 3) status = "cold smoke mode";
+  // @todo set percent and not temperature when in cold smoke mode
   else status = "unknown";
   return status;
 };
@@ -71,6 +72,7 @@ const parseHex = (str) => {
 
 class GrillStatus {
   constructor(bytes) {
+    this.timestamp = new Date().getTime();
     const hex = Buffer.from(bytes).toString("hex");
     this.state = getGrillState(hex);
     this.settings = hex.substring(17, 32);
