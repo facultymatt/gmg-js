@@ -1,125 +1,38 @@
-## TODO update with latest
+![Status logged to consile](./readme_images/gmg_status.png)
 
-## Command API
+This is a javascript application designed to connect to your GMG and record it's status to a database so informative charts can be generated and cooks can be saved for learning purposes (ex: how long did my last 12lb brisket cook take and when was the stall complete?)
 
-Command api allows for remote control of your GMG. A few implementation notes
+> This project is still work in progress (WIP) and while it's stable enough that I use it every time I run my GMG, there are still some limitations and bugs that need to be resolved.
 
-- All endpoints are GET requests for now, to make them easy to debug in browser
-- Since endpoints command an actual thing which can be dangerous, a confirmation pattern is used. The first request to each endpoint returns a code and a link, following the link actually executes the command.
+> Remember you are controlling an appliance that makes heat and fire 🔥🔥🔥 - be safe!
 
-Here are the api endpoints
+> NOTE on setting pizza mode - this commands ajusts your settings, its reccomended to make sure you settings are correct after sending this command by using the GMG app.
 
-```
-GET /command/power/on
-GET /command/power/off
-GET /command/power/cold-smoke
+# Dev getting started
 
-GET /command/temp/grill
-GET /command/temp/probe1
-GET /command/temp/probe2
+## Dependencies 
 
-GET /command/settings/pizza
-GET /command/settings/regular
-```
+- Couchdb, I reccomend installing using homebrew: https://formulae.brew.sh/formula/couchdb. Couchdb was chosen because it's enterprise grade, real-time (via changes feed), can be run on a rasberry pi, and the browser/ webapp can connect directly to it.
+- Node 12 (and npm) - can be installed from https://nodejs.org/en/download/ or using `nvm`
 
-## Status API
+## React UI
 
-Basic API to get status of grill as stored in local state. Status is updated approx 1-5 seconds by pinging grill and waiting for response message. It's not reccomdend to use this for polling. Instead, talk directory to the database, see examples TODO
+- Currently hosted as a seperate project (maybe combine with lerna in future). Checkout and get running by visiting: https://github.com/facultymatt/gmg-webapp
 
-```
-GET /status
+## Configure
 
-```
+- Find your grill IP. This can be done by looking at your network / router connected devices interface (google wifi has a great interface for this). The grill is called something like "unnamed devide".
+- Open `config.js` and enter your Grill IP. 
+- Enter a database name. Currently the way to save different cooks is the manually change this value. 
 
-## Real-time API 
+## Run and confirm it's working
 
-TODO document 
+- start couchdb in a seperate command window - `couchdb`
+- install project dependencies `npm install`
+- run `npm start`
+- confim you see a grill status printed to console. IF YOU HAVE THE CORRECT IP you will see status. If no status displays, check your IP and try again.
+- open the webapp project directory and get that running. 
 
+## Database UI
 
-
----------------
-
-Old notes
-
-# Overview
-
-The point is a useful webapp for visualizing and tracking Green Mountain Grill cooks. This is a proof of concept which uses the work from https://github.com/Aenima4six2/gmg to decode the grill status which is sent over UDP when the grill gets the right command. This code aims to be much simplier to reason than Aenima4six2/gmg, and easier to get running and customize. 
-
-This spike write data to a CSV as a database (which proved to be more trouble than worth) and visualizes prob1 temp using a ascii line chart. Another command prompt can run a real-time dashboard, although its very buggy due to reading / writing to files. 
-
-To get started 
-
-- Install deps `npm install`
-- Configure for your grill in `./config.js`
-- Run `npm run start`
-- Additionally, in a new command window, run `npm run dashboard`
-- See CSV generated in `./data` folder
-
-# Next steps
-
-- Use a real database to sync data from server to client
-- Test and reafactor the GrillStatus class
-- Add react front-end with proper graphs.
-- Try sending commands? 
-- Debug profiles and what they are all about - do we need them if we can set a profile on this? 
-
-
-
-
-# Useful links
-
-- https://community.hubitat.com/t/release-green-mountain-grill/34720
-
-Debugging wireshark data from iPhone 
-
-http://www.gilles-bertrand.com/2016/07/iphoneappwebtrafficcaptureproxymachttpsniffer.html
-
-
-```
-in command line
-rvictl -s ##
-rvictl -x ##
-
-
-```
-
-# Ways to monitize
-
-- pay $5
-- pay what you wish
-- buy / generate art from cooks
-
-
-# Charting libs
-
-- https://github.com/yaronn/blessed-contrib
-- https://vega.github.io/vega/
-- https://github.com/vega/vega-embed
-- https://altair-viz.github.io/ (python)
-- https://github.com/yhat/ggpy (python)
-
-
-
-- https://formidable.com/open-source/victory/docs/
-- https://vx-demo.now.sh/
-- https://recharts.org/en-US/
-
-
-# Databases
-
-- https://github.com/louischatriot/nedb
-- Airtable
-
-
-# Testing
-
-- Great article simple steps: https://dev.to/nedsoft/testing-nodejs-express-api-with-jest-and-supertest-1km6
-
-
-
-
--------
-
-GET /cook
-// returns all cooks 
-
+- You can visit http://localhost:5984/_utils/#/_all_dbs for a slick CouchDB UI.

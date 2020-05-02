@@ -1,7 +1,8 @@
 var PouchDB = require("pouchdb");
 const uuid = require("uuid/v4");
+import { DB_NAME } from "./config";
 
-const db = new PouchDB("http://localhost:5984/api_test_1");
+const db = new PouchDB(`http://localhost:5984/${DB_NAME}`);
 
 export async function setup() {}
 
@@ -18,7 +19,6 @@ export async function all() {
     .allDocs({ include_docs: true, limit: 100, descending: true })
     .then((data) => data.rows.map(({ doc }) => doc).reverse());
 }
-
 
 /**
  * const PouchDB = require("pouchdb");
