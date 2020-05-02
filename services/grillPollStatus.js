@@ -35,9 +35,23 @@ import { grillSendCommandOnce } from "./grillSendCommandOnce";
 export const grillPollStatus = async () => {
   const msg = await grillSendCommandOnce(COMMANDS.getGrillStatus, "ascii");
   observableGrillStatus.next(new GrillStatus(Buffer.from(msg)));
-  console.log(msg);
 
   setTimeout(() => {
     grillPollStatus();
   }, INTERVAL);
 };
+
+
+/**
+ * export const grillPollStatus = () => {
+  setInterval(() => {
+    _grillPollStatus();
+  }, INTERVAL);
+};
+
+const _grillPollStatus = async () => {
+  const msg = await grillSendCommandOnce(COMMANDS.getGrillStatus, "ascii");
+  observableGrillStatus.next(new GrillStatus(Buffer.from(msg)));
+}
+
+ */

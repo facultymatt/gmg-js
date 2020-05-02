@@ -37,6 +37,7 @@
     "babel-jest": "^25.3.0",
     "cross-env": "^7.0.2",
     "jest": "^25.3.0",
+    "rxjs-marbles": "^6.0.0",
     "supertest": "^4.0.2"
   },
   "jest": {

@@ -9,6 +9,7 @@ export const grillSendCommandOnce = async (message, mode = "ascii") => {
     // @todo check info for address / port make sure its not originating from us
     // I have not actually seen this happen...
     socket.on("message", (msg, info) => {
+      console.log(msg, info);
       socket.close();
       resolve(msg);
     });
@@ -17,6 +18,10 @@ export const grillSendCommandOnce = async (message, mode = "ascii") => {
       socket.close();
       reject(msg.toString());
     });
-    socket.send(data, 0, data.byteLength, PORT, IP, () => {});
+    socket.send(data, 0, data.byteLength, PORT, IP, (err) => {
+      if (err) {
+        console.error(err);
+      }
+    });
   });
 };

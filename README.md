@@ -1,7 +1,30 @@
 ## TODO update with latest
 
+
+- [ ] Create clean table structure and files structure
+
+```
+events
+status - optimized what we save every interval? Start with saving it all. 
+debug - save everything evey tick. Can be blown away at any time. 
+```
+
+- [ ] Make observable grill status a dir, and break out individual observables which can be tested with marbles. 
+- [ ] Subsribers very leightweight, connect to logging or to datastore events.
+- [ ] Add a unit test to demo a hex / message into an expected grill status, so we can make sure we are storing the right data to do this in future. 
+ 
+
+Then
+
+- [ ] Update chart to visualize events (mark series) and status (line charts)
+
+
+---------
+
+
 - [x] knowing each socket connection is different we need to refactor that a bit. Create a socket for pinging status, and in sendCommand create a new socket each time and listen for its response.
 - [ ] Use sendGrillCOmmandOnce for polling. Make async. Create grill status still in service.
+  - Seems to have other errors with this - not sure if its better to open one long polling or to keep opening many shot polls. 
 
 
 - [ ] Capture other grill errors? See https://github.com/Aenima4six2/gmg/commit/614589cf775422e394f4529b4befbe8ac33bbdf0 
