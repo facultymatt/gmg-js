@@ -1,4 +1,4 @@
-![Status logged to consile](./readme_images/gmg_status.png)
+![Status logged to console](./readme_images/gmg_status.png)
 
 This is a javascript application designed to connect to your GMG and record it's status to a database so informative charts can be generated and cooks can be saved for learning purposes (ex: how long did my last 12lb brisket cook take and when was the stall complete?)
 
@@ -6,18 +6,18 @@ This is a javascript application designed to connect to your GMG and record it's
 
 > Remember you are controlling an appliance that makes heat and fire 🔥🔥🔥 - be safe!
 
-> NOTE on setting pizza mode - this commands ajusts your settings, its reccomended to make sure you settings are correct after sending this command by using the GMG app.
+> NOTE on setting pizza mode - this commands adjusts your settings, its reccomended to make sure you settings are correct after sending this command by using the GMG app.
 
 # Dev getting started
 
 ## Dependencies 
 
-- Couchdb, I reccomend installing using homebrew: https://formulae.brew.sh/formula/couchdb. Couchdb was chosen because it's enterprise grade, real-time (via changes feed), can be run on a rasberry pi, and the browser/ webapp can connect directly to it.
+- CouchDB, I recommend installing using homebrew: https://formulae.brew.sh/formula/couchdb. CouchDB was chosen because it's enterprise grade, real-time (via changes feed), can be run on a raspberry pi, and the browser/ webapp can connect directly to it.
 - Node 12 (and npm) - can be installed from https://nodejs.org/en/download/ or using `nvm`
 
 ## React UI
 
-- Currently hosted as a seperate project (maybe combine with lerna in future). Checkout and get running by visiting: https://github.com/facultymatt/gmg-webapp
+- Currently hosted as a separate project (maybe combine with Lerna in future). Checkout and get running by visiting: https://github.com/facultymatt/gmg-webapp
 
 ## Configure
 
@@ -27,10 +27,10 @@ This is a javascript application designed to connect to your GMG and record it's
 
 ## Run and confirm it's working
 
-- start couchdb in a seperate command window - `couchdb`
+- start CouchDB in a separate command window - `couchdb`
 - install project dependencies `npm install`
 - run `npm start`
-- confim you see a grill status printed to console. IF YOU HAVE THE CORRECT IP you will see status. If no status displays, check your IP and try again.
+- confirm you see a grill status printed to console. IF YOU HAVE THE CORRECT IP you will see status. If no status displays, check your IP and try again.
 - open the webapp project directory and get that running. 
 
 ## Database UI
