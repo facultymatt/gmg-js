@@ -2,8 +2,7 @@ var PouchDB = require("pouchdb");
 const uuid = require("uuid/v4");
 
 const db = new PouchDB("http://localhost:5984/api_test_1");
-
-export async function setup() {}
+const eventsDb = new PouchDB("http://localhost:5984/events_test_1");
 
 export async function add(item) {
   return await db
@@ -11,7 +10,11 @@ export async function add(item) {
     .then(null, (err) => console.error(err));
 }
 
-export async function last() {}
+export async function lastKnownStatus() {
+  return await db
+    .allDocs({ include_docs: true, limit: 1, descending: true })
+    .then((data) => data.rows.length ? data.rows[0] : null);
+}
 
 export async function all() {
   return await db
@@ -19,6 +22,13 @@ export async function all() {
     .then((data) => data.rows.map(({ doc }) => doc).reverse());
 }
 
+export async function addEvent(item) {
+  console.log('addEvent', item);
+  const _id = `${item.timestamp || new Date().getTime()}-${item.type}`
+  return await eventsDb
+    .put({ _id, ...item })
+    .then(null, (err) => console.error(err));
+}
 
 /**
  * const PouchDB = require("pouchdb");

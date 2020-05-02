@@ -1,1 +1,4 @@
-module.exports = { createSocket: jest.fn() };
+import { EventEmitter } from 'events';
+
+
+module.exports = { createSocket: new EventEmitter() };

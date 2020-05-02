@@ -1,3 +1,9 @@
+// @TODO unit test and simplify using `test` function
+// @TODO use constants for power states, modes
+// @TODO settings should be default string
+
+import { GRILL_NOT_SURE_MAP } from "../constants";
+
 const getRawValue = (hex, position) => {
   const value = hex.substr(position, 2);
   const parsed = parseInt(value, 16);
@@ -11,6 +17,7 @@ const getGrillState = (hex) => {
   else if (status === 1) status = "on";
   else if (status === 2) status = "fan mode";
   else if (status === 3) status = "cold smoke mode";
+  // @todo set percent and not temperature when in cold smoke mode
   else status = "unknown";
   return status;
 };
@@ -63,19 +70,9 @@ const parseHex = (str) => {
   return parseInt(str, 16);
 };
 
-const someMap = {
-  0: "Climate ICY",
-  4: "Climate COLD",
-  8: "Climate AVERAGE",
-  12: "Climate WARM",
-  1: "Climate HOT",
-  10: "Lock temp display OFF",
-  9: "Auto Revert Wifi OFF",
-  11: "Auto Revert Wifi ON",
-};
-
 class GrillStatus {
   constructor(bytes) {
+    this.timestamp = new Date().getTime();
     const hex = Buffer.from(bytes).toString("hex");
     this.state = getGrillState(hex);
     this.settings = hex.substring(17, 32);
@@ -83,7 +80,8 @@ class GrillStatus {
       who: this.settings.substring(0, 1),
       pizzaMode: this.settings.substring(1, 2) === "2",
       manySettingsValue: parseHex(this.settings.substring(2, 3)),
-      lastManySettings: someMap[parseHex(this.settings.substring(2, 3))],
+      lastManySettings:
+        GRILL_NOT_SURE_MAP[parseHex(this.settings.substring(2, 3))],
       grillAdjustA: parseHex(this.settings.substring(3, 5)), // -20 to 20 range
       grillAdjustB: parseHex(this.settings.substring(5, 7)),
       probe1AdjustA: parseHex(this.settings.substring(7, 9)), // -25 to 25 deg range
@@ -97,7 +95,7 @@ class GrillStatus {
       parseHex(this.settings.substring(2, 3)) === 0
     ) {
       this.grillOptions.pizzaMode = false;
-      this.grillOptions.lastManySettings = someMap[1];
+      this.grillOptions.lastManySettings = GRILL_NOT_SURE_MAP[1];
     }
     this.hex = hex;
     this.isOn = this.state === "on" || this.state === "cold smoke mode";

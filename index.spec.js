@@ -1,17 +1,14 @@
 import { COMMANDS, HEX_COMMANDS } from "./constants";
 import * as codeGen from "./helpers/code-gen";
 import url from "url";
+import { grillSendCommandOnce } from "./services/grillSendCommandOnce";
+import observableGrillStatus from "./services/observableGrillStatus";
 
 const request = require("supertest");
 const app = require("./app");
-const grillPolling = require("./grill-polling");
 
-jest.mock("./grill-polling", () => ({
-  pollStatus: jest.fn(),
-  sendOnce: jest.fn(),
-  latestStatus: jest.fn(() => ({
-    settings: "xxxxxxxxxxxx",
-  })),
+jest.mock("./services/grillSendCommandOnce", () => ({
+  grillSendCommandOnce: jest.fn(),
 }));
 
 jest.spyOn(codeGen, "newCode");
@@ -21,7 +18,7 @@ describe("COMMANDS", () => {
     codeGen.newCode.mockClear();
   });
   afterEach(() => {
-    grillPolling.sendOnce.mockClear();
+    grillSendCommandOnce.mockClear();
   });
   describe("Command API", () => {
     describe("Power commands", () => {
@@ -51,7 +48,10 @@ describe("COMMANDS", () => {
         expect(link).toEqual(expectedLink);
         const res2 = await request(app).get(`/command/power/off?code=${code}`);
         expect(res2.statusCode).toEqual(200);
-        expect(grillPolling.sendOnce).toHaveBeenCalledWith(COMMANDS.powerOff, undefined);
+        expect(grillSendCommandOnce).toHaveBeenCalledWith(
+          COMMANDS.powerOff,
+          undefined
+        );
         expect(codeGen.newCode).toHaveBeenCalledTimes(2);
         done();
       });
@@ -60,7 +60,7 @@ describe("COMMANDS", () => {
         expect(res.statusCode).toEqual(403);
         expect(res.body.message).toEqual("invalid code");
         expect(codeGen.newCode).toHaveBeenCalledTimes(1);
-        expect(grillPolling.sendOnce).not.toHaveBeenCalled();
+        expect(grillSendCommandOnce).not.toHaveBeenCalled();
         done();
       });
       describe("quick check for each", () => {
@@ -101,10 +101,12 @@ describe("COMMANDS", () => {
           },
         });
         expect(link).toEqual(expectedLink);
-        const res2 = await request(app).get(`/command/temp/grill?temp=150&code=${code}`);
+        const res2 = await request(app).get(
+          `/command/temp/grill?temp=150&code=${code}`
+        );
         expect(res2.statusCode).toEqual(200);
         expect(res2.body.message).toEqual("Sent grill grill temp 150 command");
-        expect(grillPolling.sendOnce).toHaveBeenCalledWith(
+        expect(grillSendCommandOnce).toHaveBeenCalledWith(
           COMMANDS.setGrillTempF(150),
           undefined
         );
@@ -142,11 +144,13 @@ describe("COMMANDS", () => {
           },
         });
         expect(link).toEqual(expectedLink);
-        const res2 = await request(app).get(`/command/settings/pizza?code=${code}`);
+        const res2 = await request(app).get(
+          `/command/settings/pizza?code=${code}`
+        );
         expect(res2.statusCode).toEqual(200);
         expect(res2.body.message).toEqual("Sent grill pizza mode command");
-        expect(grillPolling.sendOnce).toHaveBeenCalledWith(
-          HEX_COMMANDS.setPizzaMode(grillPolling.latestStatus().settings),
+        expect(grillSendCommandOnce).toHaveBeenCalledWith(
+          HEX_COMMANDS.setPizzaMode(observableGrillStatus.value.settings),
           "hex"
         );
         expect(codeGen.newCode).toHaveBeenCalledTimes(2);
@@ -171,7 +175,7 @@ describe("COMMANDS", () => {
   // it("on", async (done) => {
   //   const res = await request(app).get("/command/on");
   //   expect(res.statusCode).toEqual(200);
-  //   expect(grillPolling.sendOnce).toHaveBeenCalledWith(COMMANDS.powerOn);
+  //   expect(grillSendCommandOnce).toHaveBeenCalledWith(COMMANDS.powerOn);
   //   done();
   // });
 });
