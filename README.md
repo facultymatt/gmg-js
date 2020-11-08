@@ -36,3 +36,31 @@ This is a javascript application designed to connect to your GMG and record it's
 ## Database UI
 
 - You can visit http://localhost:5984/_utils/#/_all_dbs for a slick CouchDB UI.
+
+## Running on Raspberry Pi
+
+There is a simple script to facilitate dev / testing on raspberry pi. On each startup / reboot the following steps are prefermed. This makes it easy to run the latest by just power cycling the Pi.
+
+1. pull latest source code from current branch (stay on master)
+2. run `yarn` to get latest dependencies 
+3. run `yarn start` to start in dev mode. (Eventually there will a way to run a built or dist version.)
+
+### How to setup backend
+
+- `sudo vi /etc/systemd/system/backend.service` 
+- paste in contents from `backend.service`
+- `sudo systemctl daemon-reload`
+- test starting with `sudo systemctl start backend.service`
+- test stopping with `sudo systemctl stop backend.service`
+- enable at startup `sudo systemctl enable backend.service`
+- test it out with a reboot `sudo reboot`
+
+### How to setup couchdb
+
+- `sudo vi /etc/systemd/system/couchdb.service` 
+- paste in contents from `couchdb.service`
+- `sudo systemctl daemon-reload`
+- test starting with `sudo systemctl start couchdb.service`
+- test stopping with `sudo systemctl stop couchdb.service`
+- enable at startup `sudo systemctl enable couchdb.service`
+- test it out with a reboot `sudo reboot`

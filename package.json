@@ -4,6 +4,8 @@
   "description": "Connect to your Green Mountain Grill and visualize grill temp, prob temp, and more!",
   "main": "index.js",
   "scripts": {
+    "update": "git pull",
+    "pi": "yarn update && yarn && yarn start",
     "dashboard": "node -r esm dashboard.js",
     "start": "babel-node index.js",
     "test": "cross-env NODE_ENV=test jest --detectOpenHandles --watch"

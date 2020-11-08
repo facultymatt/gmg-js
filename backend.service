@@ -1,0 +1,14 @@
+[Unit]
+Description=Frontend service
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Restart=always
+User=pi
+StandardInput=tty-force
+ExecStart=yarn pi
+WorkingDirectory=/home/pi/sites/gmg-webapp
+
+[Install]
+WantedBy=multi-user.target
