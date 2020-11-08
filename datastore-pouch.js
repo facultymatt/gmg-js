@@ -1,8 +1,13 @@
 var PouchDB = require("pouchdb");
 const uuid = require("uuid/v4");
-import { DB_NAME } from "./config";
+import { DB_NAME, DB_USERNAME, DB_PASSWORD } from "./config";
 
-const db = new PouchDB(`http://localhost:5984/${DB_NAME}`);
+const db = new PouchDB(`http://localhost:5984/${DB_NAME}`, {
+  auth: {
+    username: DB_USERNAME,
+    password: DB_PASSWORD
+  }
+});
 
 export async function setup() {}
 

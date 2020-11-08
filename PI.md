@@ -53,6 +53,11 @@ and put it into their service command
 edit admin username / password and cors setting
 sudo vi /home/couchdb/etc/local.ini
 
+```
+add-cors-to-couchdb -u admin -p password
+sudo npm install -g add-cors-to-couchdb
+```
+
 
 For docker, follow
 https://withblue.ink/2020/06/24/docker-and-docker-compose-on-raspberry-pi-os.html
@@ -89,3 +94,4 @@ WorkingDirectory=/home/pi/sites/gmg-js
 [Install]
 WantedBy=multi-user.target
 ```
+
