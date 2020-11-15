@@ -5,7 +5,11 @@
 - `rethinkdb`
 - in browser go to http://localhost:8080/
 
+Good article on couchdb optimization
+https://www.dimagi.com/blog/what-every-developer-should-know-about-couchdb/
 
+Good article on couchdb view design
+https://ghinda.net/article/pouchdb-views/
 
 https://marmelab.com/blog/2019/09/25/couchdb_pouchdb_serious_firebase_alternative.html
 

@@ -17,6 +17,7 @@
     "async-csv": "^2.1.3",
     "blessed": "^0.1.81",
     "blessed-contrib": "^4.8.19",
+    "cors": "^2.8.5",
     "csv-writer": "^1.6.0",
     "csvdb": "0.0.12",
     "esm": "^3.2.25",

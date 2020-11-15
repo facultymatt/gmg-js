@@ -1,8 +1,11 @@
 import express from "express";
+import cors from "cors";
 
 import { temp, power, settings } from "./routes";
 
 const app = express();
+
+app.use(cors());
 
 app.use("/command/power", power);
 app.use("/command/temp", temp);
