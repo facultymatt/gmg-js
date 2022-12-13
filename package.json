@@ -21,7 +21,7 @@
     "csv-writer": "^1.6.0",
     "csvdb": "0.0.12",
     "esm": "^3.2.25",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "lodash": "^4.17.15",
     "pouchdb": "^7.2.1",
     "pouchdb-find": "^7.2.1",
